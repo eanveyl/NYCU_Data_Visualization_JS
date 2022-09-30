@@ -104,6 +104,23 @@ d3.csv("http://vis.lab.djosix.com:2020/data/iris.csv").then( function(data) {
         svg.append("g")
             .call(d3.axisLeft(y));
 
+        //Add axis labels
+        svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "middle")
+            .attr("x", 0.5*width)
+            .attr("y", height + 26)
+            .text(chosen_x_axis);
+
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "middle")
+            .attr("y", -32)
+            .attr("x", -0.5*height)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text(chosen_y_axis);
+
         //Draw dots
         svg.append('g')
             .selectAll("dot")
