@@ -1,8 +1,11 @@
 
 // set the dimensions and margins of the graph
 const margin = {top: 10, right: 30, bottom: 30, left: 60},
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        //width = 460 - margin.left - margin.right,
+        //height = 400 - margin.top - margin.bottom;
+        width = 760 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
 
 // append the svg object to the body of the page
 const svg = d3.select("#my_dataviz")
@@ -67,7 +70,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/iris.csv").then( function(data) {
             d3.selectAll("#"+d3.select(this).attr('id'))
             .transition()
             .duration(50)
-            .attr("r", 5)
+            .attr("r", 4)
             .style("fill", function (d) {return color_strong_shade(d.class)})
         }
         catch(err) {
@@ -122,7 +125,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/iris.csv").then( function(data) {
             .data(keys)
             .enter()
             .append("circle")
-                .attr("cx", 290)
+                .attr("cx", 590)
                 .attr("cy", function(d,i){return 38 + i*25})
                 .attr("r", 6)
                 .style("fill", function(d){return color_light_shade(d)})
@@ -131,7 +134,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/iris.csv").then( function(data) {
             .data(keys)
             .enter()
             .append("text")
-                .attr("x", 300)//function(d,i){return 30 + i*60})
+                .attr("x", 600)//function(d,i){return 30 + i*60})
                 .attr("y", function(d,i){return 40 + i*25})
                 .style("fill", function(d){return color_light_shade(d)})
                 .text(function(d) {return d})
