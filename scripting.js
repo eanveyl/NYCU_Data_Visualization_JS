@@ -4,7 +4,7 @@ const margin = {top: 10, right: 30, bottom: 30, left: 60},
         //width = 460 - margin.left - margin.right,
         //height = 400 - margin.top - margin.bottom;
         width = 760 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 450 - margin.top - margin.bottom;
 
 
 // append the svg object to the body of the page
@@ -153,7 +153,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/iris.csv").then( function(data) {
             .append("text")
                 .attr("x", 600)//function(d,i){return 30 + i*60})
                 .attr("y", function(d,i){return 40 + i*25})
-                .style("fill", function(d){return color_light_shade(d)})
+                .style("fill", function(d){return color_strong_shade(d)})
                 .text(function(d) {return d})
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
