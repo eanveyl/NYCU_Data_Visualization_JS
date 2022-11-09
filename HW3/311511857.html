@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+<py-env>
+    - matplotlib
+    - pandas
+</py-env>
+
+<style>
+    h1{text-align: center;}
+    h2{text-align: center;}
+    body{background-color: #f1ead3;}
+</style>
+
+<h1>Data Visualization - Homework 2</h1>
+<h2>Eduardo Nunez (凡艾爾) - 311511857</h2>
+
+<!-- Create a div where the graph will take place -->
+<div id="tester" style="width:800px; margin:0 auto;"></div>
+
+
+<body>
+
+
+    <py-script>
+        import pandas as pd
+        from pyodide.http import open_url
+        from js import createObject
+        from pyodide.ffi import create_proxy
+
+    
+        top_n = 500
+        
+        print('Hello, World!')
+        url = "http://vis.lab.djosix.com:2020/data/spotify_tracks.csv"
+        url_content = open_url(url)
+        df = pd.read_csv(url_content)
+        
+        #print(df)
+    
+        df.sort_values(by=['popularity'], ascending=False, inplace=True)
+    
+        x_top_energy = df[0:top_n]["energy"]
+        x_all_energy = df[:]["energy"]
+        
+    
+    
+        createObject(create_proxy(globals()), "pyodideGlobals")
+        print("Done!")
+    
+    </py-script> 
+    
+
+    <script>
+        console.log(PyScript.runtime.globals.get('top_n'))
+        console.log(pyodideGlobals.get("top_n"))
+        var data = [
+            {
+                x: pyodideGlobals.get('x_top_energy'),
+                type: 'histogram',
+                histnorm: 'probability',
+                marker: {
+                    color: 'rgb(255,255,100)',
+                },
+            }
+            ];
+        Plotly.newPlot('tester', data);
+    </script>
+
+
+</body>
+

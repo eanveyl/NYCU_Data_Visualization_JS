@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+<body>
+    <py-script>x = 42</py-script>
+
+    <script>
+        function createObject(object, variableName){
+            //Bind a variable whose name is the string variableName
+            // to the object called 'object'
+            let execString = variableName + " = object"
+            console.log("Running '" + execString + "'");
+            eval(execString)
+        }
+    </script>
+    <py-script>
+        from js import createObject
+        from pyodide.ffi import create_proxy
+        createObject(create_proxy(globals()), "pyodideGlobals")
+    </py-script>
+
+    <py-script>
+        # create some Python objects:
+        symbols = {'pi': 3.1415926, 'e': 2.7182818}
+    
+        def rough_exponential(x):
+            return symbols['e']**x
+    
+        class Circle():
+            def __init__(self, radius):
+                self.radius = radius
+    
+
+    </py-script>
+
+    <input type="button" value="Log Python Variables" id="do-math">
+    <script>
+        document.getElementById("do-math").addEventListener("click", () => {
+            const exp = pyodideGlobals.get('rough_exponential');
+            console.log("e squared is about ${exp(2)}");
+            const c = pyodideGlobals.get('Circle')(4);
+            console.log("The radius of c is ${c.radius}");
+        });
+    </script>
+    
+</body>
