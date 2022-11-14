@@ -103,24 +103,60 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
   var energy_all = histogram(energy_list, 0.05);
   var trace1 = {
       x: energy_all[1],
-      y: energy_all[0],
+      y: energy_all[0].map(x => x * 100),
       type: 'bar', 
       opacity: 0.5,
-      name: "All Songs"
+      name: "All Songs", 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
     };
   
   var energy_top = histogram(energy_list.slice(0, 1000), 0.05); // take only the top 1000 songs
   var trace2 = {
       x: energy_all[1],
-      y: energy_top[0],
+      y: energy_top[0].map(x => x * 100),
       type: 'bar', 
       opacity: 0.5, 
-      name: "Top 1000"
+      name: "Top 1000", 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
     };
+
+  var trace3 = {
+      x: energy_all[1],
+      y: energy_all[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "All Songs", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    }
   
-  var data = [trace1, trace2];
+  var trace4 = {
+      x: energy_all[1],
+      y: energy_top[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "Top 1000 Spline", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    }
+
+  var data = [trace1, trace2, trace3, trace4];
   var layout = {title: "Energy", 
-                barmode: 'overlay'
+                barmode: 'overlay', 
+                xaxis: {
+                  title: "Energy Value [0-1]"
+                },
+                yaxis: {
+                  title: "Songs [%]"
+                }
               };
   
   Plotly.newPlot('energy_div', data, layout);
@@ -129,26 +165,308 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
   var danceability_all = histogram(danceability_list, 0.05);
   var trace1 = {
       x: danceability_all[1],
-      y: danceability_all[0],
+      y: danceability_all[0].map(x => x * 100),
       type: 'bar', 
       opacity: 0.5,
-      name: "All Songs"
+      name: "All Songs", 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
     };
   
   var danceability_top = histogram(danceability_list.slice(0, 1000), 0.05); // take only the top 1000 songs
   var trace2 = {
       x: danceability_all[1],
-      y: danceability_top[0],
+      y: danceability_top[0].map(x => x * 100),
       type: 'bar', 
       opacity: 0.5, 
-      name: "Top 1000"
+      name: "Top 1000", 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
     };
+
+  var trace3 = {
+      x: danceability_all[1],
+      y: danceability_all[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "All Songs", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    }
   
-  var data = [trace1, trace2];
+  var trace4 = {
+      x: danceability_all[1],
+      y: danceability_top[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "Top 1000 Spline", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    }
+  var data = [trace1, trace2, trace3, trace4];
   var layout = {title: "Danceability", 
-                barmode: 'overlay'
+                barmode: 'overlay', 
+                xaxis: {
+                  title: "Danceability Value [0-1]"
+                },
+                yaxis: {
+                  title: "Songs [%]"
+                }
               };
   
   Plotly.newPlot('danceability_div', data, layout);
   
+  //Speechiness 
+  var speechiness_all = histogram(speechiness_list, 0.05);
+  var trace1 = {
+      x: speechiness_all[1],
+      y: speechiness_all[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5,
+      name: "All Songs", 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    };
+  
+  var speechiness_top = histogram(speechiness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var trace2 = {
+      x: speechiness_all[1],
+      y: speechiness_top[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5, 
+      name: "Top 1000", 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    };
+
+  var trace3 = {
+      x: speechiness_all[1],
+      y: speechiness_all[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "All Songs", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    }
+  
+  var trace4 = {
+      x: speechiness_all[1],
+      y: speechiness_top[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "Top 1000 Spline", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    }
+
+  var data = [trace1, trace2, trace3, trace4];
+  var layout = {title: "Speechiness", 
+                barmode: 'overlay', 
+                xaxis: {
+                  title: "Speechiness Value [0-1]"
+                },
+                yaxis: {
+                  title: "Songs [%]"
+                }
+              };
+  
+  Plotly.newPlot('speechiness_div', data, layout);
+
+  //Acousticness 
+  var acousticness_all = histogram(acousticness_list, 0.05);
+  var trace1 = {
+      x: acousticness_all[1],
+      y: acousticness_all[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5,
+      name: "All Songs", 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    };
+  
+  var acousticness_top = histogram(acousticness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var trace2 = {
+      x: acousticness_all[1],
+      y: acousticness_top[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5, 
+      name: "Top 1000", 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    };
+
+  var trace3 = {
+      x: acousticness_all[1],
+      y: acousticness_all[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "All Songs", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    }
+  
+  var trace4 = {
+      x: acousticness_all[1],
+      y: acousticness_top[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "Top 1000 Spline", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    }
+
+  var data = [trace1, trace2, trace3, trace4];
+  var layout = {title: "Acousticness", 
+                barmode: 'overlay', 
+                xaxis: {
+                  title: "Acousticness Value [0-1]"
+                },
+                yaxis: {
+                  title: "Songs [%]"
+                }
+              };
+  
+  Plotly.newPlot('acousticness_div', data, layout);
+
+  //Instrumentalness 
+  var instrumentalness_all = histogram(instrumentalness_list, 0.05);
+  var trace1 = {
+      x: instrumentalness_all[1],
+      y: instrumentalness_all[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5,
+      name: "All Songs", 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    };
+  
+  var instrumentalness_top = histogram(instrumentalness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var trace2 = {
+      x: instrumentalness_all[1],
+      y: instrumentalness_top[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5, 
+      name: "Top 1000", 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    };
+
+  var trace3 = {
+      x: instrumentalness_all[1],
+      y: instrumentalness_all[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "All Songs", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    }
+  
+  var trace4 = {
+      x: instrumentalness_all[1],
+      y: instrumentalness_top[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "Top 1000 Spline", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    }
+
+  var data = [trace1, trace2, trace3, trace4];
+  var layout = {title: "Instrumentalness", 
+                barmode: 'overlay', 
+                xaxis: {
+                  title: "Instrumentalness Value [0-1]"
+                },
+                yaxis: {
+                  title: "Songs [%]"
+                }
+              };
+  
+  Plotly.newPlot('instrumentalness_div', data, layout);
+  
+  //Liveness 
+  var liveness_all = histogram(liveness_list, 0.05);
+  var trace1 = {
+      x: liveness_all[1],
+      y: liveness_all[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5,
+      name: "All Songs", 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    };
+  
+  var liveness_top = histogram(liveness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var trace2 = {
+      x: liveness_all[1],
+      y: liveness_top[0].map(x => x * 100),
+      type: 'bar', 
+      opacity: 0.5, 
+      name: "Top 1000", 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    };
+
+  var trace3 = {
+      x: liveness_all[1],
+      y: liveness_all[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "All Songs", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(201, 115, 2)',
+      }
+    }
+  
+  var trace4 = {
+      x: liveness_all[1],
+      y: liveness_top[0].map(x => x * 100),
+      mode: "lines+markers",
+      name: "Top 1000 Spline", 
+      line: {shape: 'spline'},
+      type: 'scatter', 
+      marker: {
+        color: 'rgb(4, 209, 147)',
+      }
+    }
+
+  var data = [trace1, trace2, trace3, trace4];
+  var layout = {title: "Liveness", 
+                barmode: 'overlay', 
+                xaxis: {
+                  title: "Liveness Value [0-1]"
+                },
+                yaxis: {
+                  title: "Songs [%]"
+                }
+              };
+  
+  Plotly.newPlot('liveness_div', data, layout);
 })
