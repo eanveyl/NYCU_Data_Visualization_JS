@@ -12,17 +12,31 @@
     body{background-color: #f1ead3;}
 </style>
 
-<h1>Data Visualization - Homework 2</h1>
+<h1>Data Visualization - Homework 3</h1>
 <h2>Eduardo Nunez (凡艾爾) - 311511857</h2>
 
 <!-- Create a div where the graph will take place -->
-<div id="energy_div" style="width:800px; margin:0 auto;"></div>
-<div id="danceability_div" style="width:800px; margin:0 auto;"></div>
-<div id="speechiness_div" style="width:800px; margin:0 auto;"></div>
-<div id="acousticness_div" style="width:800px; margin:0 auto;"></div>
-<div id="instrumentalness_div" style="width:800px; margin:0 auto;"></div>
-<div id="liveness_div" style="width:800px; margin:0 auto;"></div>
+<div style="width: 700px; margin:0 auto">
+    <p align="justify">This visualization analyzes the effect of certain characteristics <i>energy, danceability, speechiness, acousticness, instrumentalness and liveness</i> 
+    with values between [0-1] and their importance towards placing a song on the current top rankings in <b>Spotify</b>.</p>
 
+    <p align="justify">For this analysis, the <i>n-best</i> tracks are compared directly with the rest of the data base in terms of the previously mentioned characteristics.
+    The visualization is aided by a normalized histogram which reveals the distribution of the features along their domain. The correlation of a certain feature with 
+    the ranking can be derived from the histogram by observing how much area of the histogram overlaps. The bigger the overlapping area, the less relevant 
+    the feature is for the ranking. Features with less overlapping area mean that top songs differ in this aspect from their lower-ranked counterparts.</p>
+</div>
+<div style="float: left;">
+    <div id="energy_div" style="width:800px; margin:0 auto;"></div>
+    <div id="danceability_div" style="width:800px; margin:0 auto;"></div>
+    <div id="speechiness_div" style="width:800px; margin:0 auto;"></div>
+    <div id="acousticness_div" style="width:800px; margin:0 auto;"></div>
+    <div id="instrumentalness_div" style="width:800px; margin:0 auto;"></div>
+    <div id="liveness_div" style="width:800px; margin:0 auto;"></div>
+</div>
+
+<div style= "float: right;">
+    <div id="relevance_div" style="width:800px; margin:0 auto;"></div>
+</div>
 
 
 

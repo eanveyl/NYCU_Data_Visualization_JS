@@ -97,7 +97,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
     track_genre_list.push(data[sorted_indexes[i]]["track_genre"]);
   }
 
-
+  let top_n_tracks = 1000;
 
   //Energy 
   var energy_all = histogram(energy_list, 0.05);
@@ -112,7 +112,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
       }
     };
   
-  var energy_top = histogram(energy_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var energy_top = histogram(energy_list.slice(0, top_n_tracks), 0.05); // take only the top top_n_tracks songs
   var trace2 = {
       x: energy_all[1],
       y: energy_top[0].map(x => x * 100),
@@ -174,7 +174,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
       }
     };
   
-  var danceability_top = histogram(danceability_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var danceability_top = histogram(danceability_list.slice(0, top_n_tracks), 0.05); // take only the top top_n_tracks songs
   var trace2 = {
       x: danceability_all[1],
       y: danceability_top[0].map(x => x * 100),
@@ -235,7 +235,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
       }
     };
   
-  var speechiness_top = histogram(speechiness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var speechiness_top = histogram(speechiness_list.slice(0, top_n_tracks), 0.05); // take only the top top_n_tracks songs
   var trace2 = {
       x: speechiness_all[1],
       y: speechiness_top[0].map(x => x * 100),
@@ -297,7 +297,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
       }
     };
   
-  var acousticness_top = histogram(acousticness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var acousticness_top = histogram(acousticness_list.slice(0, top_n_tracks), 0.05); // take only the top top_n_tracks songs
   var trace2 = {
       x: acousticness_all[1],
       y: acousticness_top[0].map(x => x * 100),
@@ -359,7 +359,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
       }
     };
   
-  var instrumentalness_top = histogram(instrumentalness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var instrumentalness_top = histogram(instrumentalness_list.slice(0, top_n_tracks), 0.05); // take only the top top_n_tracks songs
   var trace2 = {
       x: instrumentalness_all[1],
       y: instrumentalness_top[0].map(x => x * 100),
@@ -421,7 +421,7 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
       }
     };
   
-  var liveness_top = histogram(liveness_list.slice(0, 1000), 0.05); // take only the top 1000 songs
+  var liveness_top = histogram(liveness_list.slice(0, top_n_tracks), 0.05); // take only the top top_n_tracks songs
   var trace2 = {
       x: liveness_all[1],
       y: liveness_top[0].map(x => x * 100),
@@ -469,4 +469,60 @@ d3.csv("http://vis.lab.djosix.com:2020/data/spotify_tracks.csv").then( function(
               };
   
   Plotly.newPlot('liveness_div', data, layout);
+
+  //Process the distribution relevance of the total data in comparison to the selected top data.
+  var energy_relevance = 0;
+  for (let i=0; i<energy_top[0].length; i++) {
+    energy_relevance += Math.abs(energy_all[0][i]-energy_top[0][i]); // the lower this number, the more similar the two distributions are, thus the more irrelevant they are.
+  }
+  console.log(energy_relevance)
+
+  var danceability_relevance = 0;
+  for (let i=0; i<danceability_top[0].length; i++) {
+    danceability_relevance += Math.abs(danceability_all[0][i]-danceability_top[0][i]); // the lower this number, the more similar the two distributions are, thus the more irrelevant they are.
+  }
+  console.log(danceability_relevance)
+
+  var speechiness_relevance = 0;
+  for (let i=0; i<speechiness_top[0].length; i++) {
+    speechiness_relevance += Math.abs(speechiness_all[0][i]-speechiness_top[0][i]); // the lower this number, the more similar the two distributions are, thus the more irrelevant they are.
+  }
+  console.log(speechiness_relevance)
+
+  var acousticness_relevance = 0;
+  for (let i=0; i<acousticness_top[0].length; i++) {
+    acousticness_relevance += Math.abs(acousticness_all[0][i]-acousticness_top[0][i]); // the lower this number, the more similar the two distributions are, thus the more irrelevant they are.
+  }
+  console.log(acousticness_relevance)
+
+  var instrumentalness_relevance = 0;
+  for (let i=0; i<instrumentalness_top[0].length; i++) {
+    instrumentalness_relevance += Math.abs(instrumentalness_all[0][i]-instrumentalness_top[0][i]); // the lower this number, the more similar the two distributions are, thus the more irrelevant they are.
+  }
+  console.log(instrumentalness_relevance)
+
+  var liveness_relevance = 0;
+  for (let i=0; i<liveness_top[0].length; i++) {
+    liveness_relevance += Math.abs(liveness_all[0][i]-liveness_top[0][i]); // the lower this number, the more similar the two distributions are, thus the more irrelevant they are.
+  }
+  console.log(liveness_relevance)
+  
+  var data = [{
+    type: "pie",
+    values: [energy_relevance, danceability_relevance, speechiness_relevance, acousticness_relevance, instrumentalness_relevance, liveness_relevance],
+    labels: ["Energy", "Danceability", "Speechiness", "Acousticness", "Instrumentalness", "Liveness"],
+    textinfo: "label+percent",
+    textposition: "outside",
+    automargin: true
+  }]
+  
+  var layout = {
+    height: 400,
+    width: 400,
+    margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+    showlegend: false, 
+    title: "Characteristic Relevance for Top 1000 Tracks"
+    }
+  
+  Plotly.newPlot('relevance_div', data, layout)
 })
