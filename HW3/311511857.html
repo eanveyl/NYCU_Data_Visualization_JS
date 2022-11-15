@@ -10,22 +10,72 @@
     h1{text-align: center;}
     h2{text-align: center;}
     body{background-color: #f1ead3;}
+    slidecontainer {
+    width: 100%; /* Width of the outside container */
+    }
+
+    /* The slider itself */
+    slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+    }
+
+    /* Mouse-over effects */
+    slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    }
+
+    slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    }
 </style>
 
 <h1>Data Visualization - Homework 3</h1>
 <h2>Eduardo Nunez (凡艾爾) - 311511857</h2>
 
 <!-- Create a div where the graph will take place -->
-<div style="width: 700px; margin:0 auto">
+<div style="width: 1200px; margin:0 auto">
     <p align="justify">This visualization analyzes the effect of certain characteristics <i>energy, danceability, speechiness, acousticness, instrumentalness and liveness</i> 
     with values between [0-1] and their importance towards placing a song on the current top rankings in <b>Spotify</b>.</p>
 
-    <p align="justify">For this analysis, the <i>n-best</i> tracks are compared directly with the rest of the data base in terms of the previously mentioned characteristics.
+    <p align="justify">For this analysis, the <i>top-n</i> tracks are compared directly with the rest of the data base in terms of the previously mentioned characteristics.
     The visualization is aided by a normalized histogram which reveals the distribution of the features along their domain. The correlation of a certain feature with 
     the ranking can be derived from the histogram by observing how much area of the histogram overlaps. The bigger the overlapping area, the less relevant 
     the feature is for the ranking. Features with less overlapping area mean that top songs differ in this aspect from their lower-ranked counterparts.</p>
+
+    <p align="justify"><i>Note: </i> You are encouraged to try out different values to see how the data changes.</p>
+
+    <p><b>Step 1: </b>Choose the <i>top-n</i> songs to compare and click the button: </p>
+
+    <div class="slidecontainer">
+        <input type="range" min="50" max="5000" value="1000" class="slider" id="myRange">
+        <output id="demo"></output>
+    </div>
+    <button onclick="refresh_plots()">Plot!</button>
 </div>
 <div style="float: left;">
+    <p style="width:800px;"><b>Step 2: </b>Observe the histograms depicting each individual feature and how this feature is distributed between 0 and 1. Observe how much of the area
+    of the two histograms overlap.</p>
     <div id="energy_div" style="width:800px; margin:0 auto;"></div>
     <div id="danceability_div" style="width:800px; margin:0 auto;"></div>
     <div id="speechiness_div" style="width:800px; margin:0 auto;"></div>
@@ -35,7 +85,12 @@
 </div>
 
 <div style= "float: right;">
+    <p style="width:800px;"><b>Step 3: </b>The relevance of each feature or characteristic is shown as a pie chart to easily identify which features separate the <i>top-n</i> tracks from 
+    the rest of the songs. <i>Which characteristics seem to have a greater impact on separating the top songs from the rest?</i></p>
     <div id="relevance_div" style="width:800px; margin:0 auto;"></div>
+    <p style="width:800px;"><b>Step 4: </b>Finally, a statistical box plot is shown to give insight to the median and quartile distributions of each feature of the <i>top-n</i> songs 
+    and the remaining songs. Observe how the 1st and 3rd quartile are distributed, and how the median of top songs compares to the total median.</p>
+    <div id="feature_div" style="width:800px; margin:0 auto;"></div>
 </div>
 
 
