@@ -17,8 +17,8 @@ slider.oninput = function() {
 */
 function histogram(X, binRange) {
   //inclusive of the first number  
-  var max = Math.max(...X);
-  var min = Math.min(...X);
+  var max = 1;//Math.max(...X);
+  var min = 0;//Math.min(...X);
   var len = max - min; // changed from originally var len = max - min + 1;
   var numberOfBins = Math.ceil(len / binRange);
   var bins = new Array(numberOfBins).fill(0);
