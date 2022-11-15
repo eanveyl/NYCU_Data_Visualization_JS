@@ -1,12 +1,12 @@
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = slider.value.toString().concat(", meaning the top ", (slider.value*100/114000).toFixed(2).toString(), "% of all tracks in the dataset."); // Display the default slider value
 let top_n_tracks = slider.value;
 refresh_plots(); //Draw the plots the first time with the default value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
-  output.innerHTML = this.value;
+  output.innerHTML = slider.value.toString().concat(", meaning the top ", (slider.value*100/114000).toFixed(2).toString(), "% of all tracks in the dataset.")
   top_n_tracks = slider.value;
 }
 
